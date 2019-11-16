@@ -14,11 +14,18 @@
 // How to load in modules
 const Diagnostics = require('Diagnostics')
 const Patches = require('Patches')
-const Networking = require('Diagnostics')
-const url = ''
+const Networking = require('Networking')
+const url = 'http://fbsf-2019.appspot.com/state'
 
 Patches.getBooleanValue('onMouthOpen')
     .monitor()
     .subscribe(function(e) {
-        Diagnostics.log(e)
+        let request = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isDispensing: e.newValue })
+        }
+        Networking.fetch(url, request).catch(function(err) {
+            Diagnostics.log(err)
+        })
     })
