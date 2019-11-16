@@ -8,13 +8,15 @@ void setup() {
 void loop() {
   if(Serial.available()){
     char i = Serial.read();
-    
+    Serial.println(i);
     if(i=='0'){
       // off
+      Serial.println("off");
       digitalWrite(pin, LOW);
     } else {
       // on
+      Serial.println("on");
       digitalWrite(pin, HIGH);
     }
-  } else digitalWrite(pin, LOW);
+  }
 }
