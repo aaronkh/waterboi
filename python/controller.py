@@ -13,9 +13,11 @@ while True:
     try:
         r = requests.get(url)
         r = r.json()
+        print(r['isDispensing'])
         if last_state != r['isDispensing']:
             last_state = r['isDispensing']
-            ser.write(str(int(last_state)))
+            print(str(int(last_state)))
+            ser.write(str(int(last_state)).encode())
 
     except:
         pass
